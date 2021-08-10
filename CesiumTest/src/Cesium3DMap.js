@@ -31,15 +31,34 @@ class Cesium3DMap extends Component {
         //     //token: 'oRASk_RrGErrX2RDyt719yiPZQJx7SM8ASyGnbbNLVTNbqzw2gF7MX33Gdzo3tOF'
         // });
 
-        const imageryProvider = new Cesium.ArcGisMapServerImageryProvider({
-            url: 'https://services.geodataonline.no/arcgis/rest/services/Geocache_WMAS_WGS84/GeocacheBilder/MapServer',
-            token: 'oRASk_RrGErrX2RDyt719yiPZQJx7SM8ASyGnbbNLVTNbqzw2gF7MX33Gdzo3tOF'
-        });
+        // const imageryProvider = new Cesium.ArcGisMapServerImageryProvider({
+        //     url: 'https://services.geodataonline.no/arcgis/rest/services/Geocache_WMAS_WGS84/GeocacheBilder/MapServer',
+        //     token: 'oRASk_RrGErrX2RDyt719yiPZQJx7SM8ASyGnbbNLVTNbqzw2gF7MX33Gdzo3tOF'
+        // });
+
+        // Test med topo4
+        const topo4 = new Cesium.WebMapTileServiceImageryProvider({
+            url: 'https://opencache.statkart.no/gatekeeper/gk/gk.open_wmts?',
+            layer: 'topo4',
+            style: 'default',
+            format: 'image/png',
+            tileMatrixSetID: 'EPSG:3857',
+            tileMatrixLabels: ['EPSG:3857:0', 'EPSG:3857:1', 'EPSG:3857:2', 'EPSG:3857:3',
+              'EPSG:3857:4', 'EPSG:3857:5', 'EPSG:3857:6', 'EPSG:3857:7',
+              'EPSG:3857:8', 'EPSG:3857:9', 'EPSG:3857:10', 'EPSG:3857:11',
+              'EPSG:3857:12', 'EPSG:3857:13', 'EPSG:3857:14', 'EPSG:3857:15',
+              'EPSG:3857:16', 'EPSG:3857:17', 'EPSG:3857:18', 'EPSG:3857:19'
+            ],
+            maximumLevel: 19,
+            credit: new Cesium.Credit('Kartverket')
+          });
 
         const viewer = new Cesium.Viewer('cesiumContainer', {
             terrainProvider: Cesium.createWorldTerrain(),
-            imageryProvider: imageryProvider,
+            imageryProvider: topo4,
             requestRenderMode: true,
+            timeline: false,
+            animation: false,
             maximumRenderTimeChange: Infinity,
         });
         viewer.scene.skyBox.show = false;
